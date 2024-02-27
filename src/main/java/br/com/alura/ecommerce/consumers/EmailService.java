@@ -1,6 +1,6 @@
 package br.com.alura.ecommerce.consumers;
 
-import br.com.alura.ecommerce.KafkaService;
+import br.com.alura.ecommerce.commons.KafkaService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 public class EmailService {
