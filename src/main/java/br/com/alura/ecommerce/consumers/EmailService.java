@@ -1,5 +1,6 @@
-package br.com.alura.ecommerce;
+package br.com.alura.ecommerce.consumers;
 
+import br.com.alura.ecommerce.KafkaService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 public class EmailService {
@@ -7,7 +8,7 @@ public class EmailService {
         KafkaService kafkaService = new KafkaService(
                 "ecommerce.send.email",
                 EmailService::parse,
-                EmailService .class.getSimpleName());
+                EmailService.class.getSimpleName());
 
         kafkaService.run();
     }
