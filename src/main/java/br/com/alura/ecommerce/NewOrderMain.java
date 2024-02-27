@@ -1,5 +1,6 @@
 package br.com.alura.ecommerce;
 
+import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -16,19 +17,28 @@ public class NewOrderMain {
             String value = "123123,123123,conta";
             ProducerRecord<String, String> mensagem = new ProducerRecord<>("ecommerce.new.order", value, value);
 
-            kafkaProducer.send(mensagem,((metadata, exception) -> {
-                if (exception != null){
+            Callback callback = (metadata, exception) -> {
+                if (exception != null) {
                     exception.printStackTrace();
                     return;
                 }
 
-                System.out.println(metadata.topic()+":::::"+metadata.offset());
-            })).get();
+                System.out.println(metadata.topic() + ":::::" + metadata.offset());
+            };
+            String email = "email@host.com";
+            String msg = "Obrigado pela compra!";
+            ProducerRecord<String, String> emailRecord = new ProducerRecord<>("ecommerce.send.email", email, msg);
+
+            kafkaProducer.send(mensagem, callback).get();
+            kafkaProducer.send(emailRecord,callback).get();
+
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
+
     }
 
     private static Properties properties() {
