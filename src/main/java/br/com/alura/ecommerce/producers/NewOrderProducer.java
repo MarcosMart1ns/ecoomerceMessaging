@@ -18,7 +18,7 @@ public class NewOrderProducer {
     public static void main(String[] args) {
 
         try (KafkaDispatcher<Order> orderKafkaDispatcher = new KafkaDispatcher<>();) {
-            try (KafkaDispatcher<String> emailKafkaDispatcher = new KafkaDispatcher<>();) {
+            try (KafkaDispatcher<Email> emailKafkaDispatcher = new KafkaDispatcher<>();) {
                 for (int i = 0; i < 10; i++) {
 
                     String value = "123123,123123,conta";
@@ -34,7 +34,9 @@ public class NewOrderProducer {
                     );
 
                     orderKafkaDispatcher.send("ecommerce.new.order", order.getUserId(), order);
-                    emailKafkaDispatcher.send("ecommerce.send.email", order.getUserId(), msg);
+                    emailKafkaDispatcher.send("ecommerce.send.email", order.getUserId(), new Email(
+                            email,msg
+                    ));
                 }
             } catch (ExecutionException | InterruptedException e) {
                 throw new RuntimeException(e);

@@ -1,6 +1,7 @@
 package br.com.alura.ecommerce.consumers;
 
 import br.com.alura.ecommerce.commons.KafkaService;
+import br.com.alura.ecommerce.producers.Email;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 public class EmailService {
@@ -8,12 +9,13 @@ public class EmailService {
         KafkaService kafkaService = new KafkaService(
                 "ecommerce.send.email",
                 EmailService::parse,
-                EmailService.class.getSimpleName());
+                EmailService.class.getSimpleName(),
+                Email.class);
 
         kafkaService.run();
     }
 
-    private static void parse(ConsumerRecord<String,String> consumerRecord){
+    private static void parse(ConsumerRecord<String,Email> consumerRecord){
         System.out.println("Processando novo email------------>");
         System.out.println(consumerRecord.key());
         System.out.println(consumerRecord.value());

@@ -9,7 +9,8 @@ public class LogService {
         KafkaService kafkaService = new KafkaService(
                 Pattern.compile("ecommerce.*"),
                 LogService::parse,
-                LogService.class.getSimpleName());
+                LogService.class.getSimpleName(),
+                String.class);
 
         kafkaService.run();
     }
