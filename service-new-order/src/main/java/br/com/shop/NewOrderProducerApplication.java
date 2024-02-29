@@ -1,20 +1,14 @@
-package br.com.shop.ecommerce.producers;
+package br.com.shop;
 
-import br.com.shop.ecommerce.commons.KafkaDispatcher;
-import org.apache.kafka.clients.producer.Callback;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.StringSerializer;
+import br.com.shop.domain.Email;
+import br.com.shop.domain.Order;
 
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Properties;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 
-public class NewOrderProducer {
+public class NewOrderProducerApplication {
     public static void main(String[] args) {
 
         try (KafkaDispatcher<Order> orderKafkaDispatcher = new KafkaDispatcher<>();) {

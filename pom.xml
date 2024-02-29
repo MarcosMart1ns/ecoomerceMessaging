@@ -12,6 +12,7 @@
         <module>service-email</module>
         <module>commons</module>
         <module>service-log</module>
+        <module>service-new-order</module>
     </modules>
 
     <properties>

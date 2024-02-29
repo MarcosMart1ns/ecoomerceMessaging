@@ -86,3 +86,11 @@ p
 @service-log/src/main/java/br/com/shop/LogServiceApplication.java,6\5\651a78e5d5a2e0464c2362df6b21697e73f8b9cc
 c
 3commons/src/main/java/br/com/shop/domain/Email.java,d\a\dac22c9d7427c4342be82e96103e79d451438192
+I
+service-new-order/pom.xml,3\e\3e47574fb605617448abae97a63710859007e535
+e
+5service-new-order/src/main/java/br/com/shop/Main.java,5\8\583859d70f4651980f1f12ca626deaef010520f5
+q
+Aservice-new-order/src/main/java/br/com/shop/NewOrderProducer.java,5\6\5664695a933e5638816169f6f2c7c928abe8dfae
+|
+Lservice-new-order/src/main/java/br/com/shop/NewOrderProducerApplication.java,8\d\8dc1b5b29cb305ed22b994985b014a6d338074b6
