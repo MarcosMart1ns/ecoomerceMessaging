@@ -1,17 +1,16 @@
-package br.com.alura.ecommerce.consumers;
+package br.com.shop;
 
-import br.com.alura.ecommerce.commons.KafkaService;
-import br.com.alura.ecommerce.producers.Email;
+import br.com.shop.domain.Email;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.util.HashMap;
 
-public class EmailService {
+public class EmailServiceApplication {
     public static void main(String[] args) {
         KafkaService kafkaService = new KafkaService(
                 "ecommerce.send.email",
-                EmailService::parse,
-                EmailService.class.getSimpleName(),
+                EmailServiceApplication::parse,
+                EmailServiceApplication.class.getSimpleName(),
                 Email.class,
                 new HashMap<>()
         );

@@ -1,4 +1,4 @@
-package br.com.alura.ecommerce.commons;
+package br.com.shop;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class GsonDeserializer<T> implements Deserializer {
 
-    public static final String TYPE_CONFIG = "br.com.alura.ecoomerce.type.config";
+    public static final String TYPE_CONFIG = "br.com.shop.ecommerce.type.config";
     private final Gson gson = new GsonBuilder().create();
     private Class<T> type;
 

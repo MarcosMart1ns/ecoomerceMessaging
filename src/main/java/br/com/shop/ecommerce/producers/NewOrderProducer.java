@@ -1,6 +1,6 @@
-package br.com.alura.ecommerce.producers;
+package br.com.shop.ecommerce.producers;
 
-import br.com.alura.ecommerce.commons.KafkaDispatcher;
+import br.com.shop.ecommerce.commons.KafkaDispatcher;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;

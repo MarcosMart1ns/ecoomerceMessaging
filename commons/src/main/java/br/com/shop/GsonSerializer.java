@@ -1,4 +1,4 @@
-package br.com.alura.ecommerce.commons;
+package br.com.shop;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

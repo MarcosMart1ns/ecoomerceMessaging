@@ -1,4 +1,4 @@
-package br.com.alura.ecommerce.producers;
+package br.com.shop.domain;
 
 public class Email {
     private final String subject;

@@ -1,6 +1,6 @@
-package br.com.alura.ecommerce.consumers;
+package br.com.shop.ecommerce.consumers;
 
-import br.com.alura.ecommerce.commons.KafkaService;
+import br.com.shop.ecommerce.commons.KafkaService;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;

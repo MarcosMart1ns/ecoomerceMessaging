@@ -1,7 +1,7 @@
-package br.com.alura.ecommerce.consumers;
+package br.com.shop.ecommerce.consumers;
 
-import br.com.alura.ecommerce.commons.KafkaService;
-import br.com.alura.ecommerce.producers.Order;
+import br.com.shop.ecommerce.commons.KafkaService;
+import br.com.shop.ecommerce.producers.Order;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.util.HashMap;
