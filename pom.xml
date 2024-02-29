@@ -13,6 +13,7 @@
         <module>commons</module>
         <module>service-log</module>
         <module>service-new-order</module>
+        <module>service-fraud-detector</module>
     </modules>
 
     <properties>

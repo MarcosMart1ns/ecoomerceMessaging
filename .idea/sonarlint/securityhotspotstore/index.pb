@@ -94,3 +94,11 @@ q
 Aservice-new-order/src/main/java/br/com/shop/NewOrderProducer.java,5\6\5664695a933e5638816169f6f2c7c928abe8dfae
 |
 Lservice-new-order/src/main/java/br/com/shop/NewOrderProducerApplication.java,8\d\8dc1b5b29cb305ed22b994985b014a6d338074b6
+N
+service-fraud-detector/pom.xml,d\6\d66e21c53788ee5da6ccd41561a82cd74edf3bf5
+j
+:service-fraud-detector/src/main/java/br/com/shop/Main.java,9\e\9e6edd3e1b031038a17eccca286a6a6078f9dfb6
+z
+Jservice-fraud-detector/src/main/java/br/com/shop/FraudDetectorService.java,9\6\964746455867baaf57ea653255a17aa90d892918
+…
+Uservice-fraud-detector/src/main/java/br/com/shop/FraudDetectorServiceApplication.java,3\8\386551b7a982fde2c6415ec15f80752b4ef8c451

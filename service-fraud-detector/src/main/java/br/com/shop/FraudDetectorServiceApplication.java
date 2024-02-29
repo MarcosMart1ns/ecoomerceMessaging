@@ -1,18 +1,17 @@
-package br.com.shop.ecommerce.consumers;
+package br.com.shop;
 
-import br.com.shop.ecommerce.commons.KafkaService;
-import br.com.shop.ecommerce.producers.Order;
+import br.com.shop.domain.Order;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.util.HashMap;
 
 
-public class FraudDetectorService {
+public class FraudDetectorServiceApplication {
     public static void main(String[] args) {
         KafkaService kafkaService = new KafkaService(
                 "ecommerce.new.order",
-                FraudDetectorService::parse,
-                FraudDetectorService.class.getSimpleName(),
+                FraudDetectorServiceApplication::parse,
+                FraudDetectorServiceApplication.class.getSimpleName(),
                 Order.class,
                 new HashMap<>());
 
