@@ -4,6 +4,8 @@ import br.com.alura.ecommerce.commons.KafkaService;
 import br.com.alura.ecommerce.producers.Order;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
+import java.util.HashMap;
+
 
 public class FraudDetectorService {
     public static void main(String[] args) {
@@ -11,7 +13,8 @@ public class FraudDetectorService {
                 "ecommerce.new.order",
                 FraudDetectorService::parse,
                 FraudDetectorService.class.getSimpleName(),
-                Order.class);
+                Order.class,
+                new HashMap<>());
 
         kafkaService.run();
     }

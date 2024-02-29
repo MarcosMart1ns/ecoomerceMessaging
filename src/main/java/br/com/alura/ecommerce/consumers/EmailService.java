@@ -4,13 +4,17 @@ import br.com.alura.ecommerce.commons.KafkaService;
 import br.com.alura.ecommerce.producers.Email;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
+import java.util.HashMap;
+
 public class EmailService {
     public static void main(String[] args) {
         KafkaService kafkaService = new KafkaService(
                 "ecommerce.send.email",
                 EmailService::parse,
                 EmailService.class.getSimpleName(),
-                Email.class);
+                Email.class,
+                new HashMap<>()
+        );
 
         kafkaService.run();
     }

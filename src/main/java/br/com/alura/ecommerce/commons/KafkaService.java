@@ -7,6 +7,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.time.Duration;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
@@ -17,18 +18,22 @@ public class KafkaService<T> {
     private final String consumerGroup;
     private final Class<T> classType;
 
-    public KafkaService(String topic, ConsumerFunction parse, String consumerGroup, Class<T> classType) {
+    private final Map<String, String> properties;
+
+    public KafkaService(String topic, ConsumerFunction parse, String consumerGroup, Class<T> classType, Map<String,String> properties) {
         this.parse = parse;
         this.consumerGroup = consumerGroup;
         this.classType = classType;
+        this.properties = properties;
         consumer = new KafkaConsumer<>(this.properties());
         consumer.subscribe(Collections.singleton(topic));
     }
 
-    public KafkaService(Pattern topic, ConsumerFunction parse, String consumerGroup, Class<T> classType) {
+    public KafkaService(Pattern topic, ConsumerFunction parse, String consumerGroup, Class<T> classType, Map<String,String> properties) {
         this.parse = parse;
         this.consumerGroup = consumerGroup;
         this.classType = classType;
+        this.properties = properties;
         consumer = new KafkaConsumer<>(this.properties());
         consumer.subscribe(topic);
     }
@@ -53,6 +58,7 @@ public class KafkaService<T> {
         properties.setProperty(ConsumerConfig.CLIENT_ID_CONFIG,consumerGroup);
         properties.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"1");
         properties.setProperty(GsonDeserializer.TYPE_CONFIG, classType.getName());
+        properties.putAll(this.properties);
         return properties;
     }
 }
