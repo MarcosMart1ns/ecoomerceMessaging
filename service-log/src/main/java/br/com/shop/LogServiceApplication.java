@@ -1,6 +1,5 @@
-package br.com.shop.ecommerce.consumers;
+package br.com.shop;
 
-import br.com.shop.ecommerce.commons.KafkaService;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -8,12 +7,12 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class LogService {
+public class LogServiceApplication {
     public static void main(String[] args) {
         KafkaService kafkaService = new KafkaService(
                 Pattern.compile("ecommerce.*"),
-                LogService::parse,
-                LogService.class.getSimpleName(),
+                LogServiceApplication::parse,
+                LogServiceApplication.class.getSimpleName(),
                 String.class,
                 Map.of(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName()));
 

@@ -11,6 +11,7 @@
     <modules>
         <module>service-email</module>
         <module>commons</module>
+        <module>service-log</module>
     </modules>
 
     <properties>

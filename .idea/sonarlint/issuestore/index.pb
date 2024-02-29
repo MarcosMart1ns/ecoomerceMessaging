@@ -76,3 +76,13 @@ m
 =src/main/java/br/com/shop/ecommerce/consumers/LogService.java,b\2\b21cd05e03366c4af8a6d5102b143fabbd45a876
 s
 Csrc/main/java/br/com/shop/ecommerce/producers/NewOrderProducer.java,8\1\8156e666bd1d756b0a6b29019f521dcb23d62560
+c
+3commons/src/main/java/br/com/shop/domain/Order.java,d\5\d5183be309c654fb59be2afbd85d48c1411e7a67
+C
+service-log/pom.xml,5\3\53930f26e092026a97492f813c6dfd7fd8982c48
+e
+5service-log/src/main/java/br/com/shop/LogService.java,8\b\8b85fc2725541f11029b21bbc4d37f43d0ca8001
+p
+@service-log/src/main/java/br/com/shop/LogServiceApplication.java,6\5\651a78e5d5a2e0464c2362df6b21697e73f8b9cc
+c
+3commons/src/main/java/br/com/shop/domain/Email.java,d\a\dac22c9d7427c4342be82e96103e79d451438192
