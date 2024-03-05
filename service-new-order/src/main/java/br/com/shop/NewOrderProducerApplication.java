@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutionException;
 
 
 public class NewOrderProducerApplication {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
 
         try (KafkaDispatcher<Order> orderKafkaDispatcher = new KafkaDispatcher<>();) {
             try (KafkaDispatcher<Email> emailKafkaDispatcher = new KafkaDispatcher<>();) {
@@ -29,11 +29,9 @@ public class NewOrderProducerApplication {
 
                     orderKafkaDispatcher.send("ecommerce.new.order", order.getUserId(), order);
                     emailKafkaDispatcher.send("ecommerce.send.email", order.getUserId(), new Email(
-                            email,msg
+                            email, msg
                     ));
                 }
-            } catch (ExecutionException | InterruptedException e) {
-                throw new RuntimeException(e);
             }
 
         }

@@ -12,8 +12,7 @@ public class EmailServiceApplication {
                 EmailServiceApplication::parse,
                 EmailServiceApplication.class.getSimpleName(),
                 Email.class,
-                new HashMap<>()
-        );
+                new HashMap<>());
 
         kafkaService.run();
     }

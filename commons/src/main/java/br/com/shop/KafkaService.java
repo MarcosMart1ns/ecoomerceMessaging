@@ -1,6 +1,7 @@
 package br.com.shop;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -9,6 +10,7 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
 public class KafkaService<T> {
@@ -43,7 +45,16 @@ public class KafkaService<T> {
             ConsumerRecords<String, T> records = consumer.poll(Duration.ofMillis(100L));
             if (!records.isEmpty()) {
                 System.out.println("Found " + records.count() + " events");
-                records.forEach(parse::consumer);
+
+                for (ConsumerRecord<String, T> a : records) {
+                    try{
+                        parse.consumer(a);
+                    } catch (ExecutionException e) {
+                        throw new RuntimeException(e);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
         }
     }

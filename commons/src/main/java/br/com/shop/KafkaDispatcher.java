@@ -40,7 +40,7 @@ public class KafkaDispatcher<T> implements Closeable {
             return;
         }
 
-        System.out.printf("%s ::::: %s", metadata.topic(),metadata.offset());
+        System.out.printf("%s ::::: %s\n", metadata.topic(),metadata.offset());
     };
 
     @Override

@@ -36,4 +36,13 @@ public class Order {
     public void setAmmount(BigDecimal ammount) {
         this.ammount = ammount;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "userId='" + userId + '\'' +
+                ", orderId='" + orderId + '\'' +
+                ", ammount=" + ammount +
+                '}';
+    }
 }
