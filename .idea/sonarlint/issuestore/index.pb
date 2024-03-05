@@ -40,3 +40,7 @@ N
 Uservice-fraud-detector/src/main/java/br/com/shop/FraudDetectorServiceApplication.java,3\8\386551b7a982fde2c6415ec15f80752b4ef8c451
 C
 docker-compose.yaml,e\f\ef8def03dc8f162799089e9b5f4321201c8810d5
+E
+service-users/pom.xml,2\3\23dac6e78c7e39fdb6380fcabb5ea8307408cb42
+n
+>service-users/src/main/java/br/com/shop/CreateUserService.java,0\f\0f37cf2231f5a7bcf92ba51a0fe3224a03ab9d47

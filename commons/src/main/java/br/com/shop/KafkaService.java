@@ -6,6 +6,9 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
+import java.io.Closeable;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Map;
@@ -13,7 +16,7 @@ import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
-public class KafkaService<T> {
+public class KafkaService<T> implements Closeable {
 
     private final KafkaConsumer<String, T> consumer;
     private final ConsumerFunction parse;
@@ -51,7 +54,7 @@ public class KafkaService<T> {
                         parse.consumer(a);
                     } catch (ExecutionException e) {
                         throw new RuntimeException(e);
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException | SQLException e) {
                         throw new RuntimeException(e);
                     }
                 }
@@ -71,5 +74,10 @@ public class KafkaService<T> {
         properties.setProperty(GsonDeserializer.TYPE_CONFIG, classType.getName());
         properties.putAll(this.properties);
         return properties;
+    }
+
+    @Override
+    public void close() throws IOException {
+        consumer.close();
     }
 }

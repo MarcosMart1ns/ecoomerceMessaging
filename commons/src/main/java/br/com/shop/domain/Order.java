@@ -45,4 +45,8 @@ public class Order {
                 ", ammount=" + ammount +
                 '}';
     }
+
+    public String getEmail() {
+        return "email";
+    }
 }
