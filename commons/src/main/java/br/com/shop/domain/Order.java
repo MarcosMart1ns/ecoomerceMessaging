@@ -7,10 +7,13 @@ public class Order {
     private String orderId;
     private BigDecimal ammount;
 
-    public Order(String userId, String orderId, BigDecimal value) {
+    private String email;
+
+    public Order(String userId, String orderId, BigDecimal ammount, String email) {
         this.userId = userId;
         this.orderId = orderId;
-        this.ammount = value;
+        this.ammount = ammount;
+        this.email = email;
     }
 
     public String getUserId() {
@@ -47,6 +50,6 @@ public class Order {
     }
 
     public String getEmail() {
-        return "email";
+        return email;
     }
 }

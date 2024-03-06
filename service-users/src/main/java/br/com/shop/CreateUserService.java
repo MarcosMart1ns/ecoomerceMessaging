@@ -19,10 +19,15 @@ public class CreateUserService {
     public CreateUserService() throws SQLException{
         this.connection = DriverManager.getConnection(DB_URL);
 
-        connection.createStatement().execute("create table Users(" +
-                "uuid varchar(200) primary key," +
-                "email varchar(200)" +
-                ")");
+        try {
+            connection.createStatement().execute("create table Users(" +
+                    "uuid varchar(200) primary key," +
+                    "email varchar(200)" +
+                    ")");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            System.err.println(e);
+        }
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
@@ -48,13 +53,13 @@ public class CreateUserService {
         System.out.println(record.offset());
 
         if (ifIsNewUser(record.value().getEmail())) {
-            insertNewUser(record.value().getEmail());
+            insertNewUser(record.value().getUserId(),record.value().getEmail());
         }
     }
 
-    private void insertNewUser(String email) throws SQLException {
+    private void insertNewUser(String id, String email) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("insert into Users(uuid,email)values (?,?)");
-        preparedStatement.setString(1, "uuid");
+        preparedStatement.setString(1, id);
         preparedStatement.setString(2, email);
         preparedStatement.execute();
         System.out.println("Email persistido::" + email);

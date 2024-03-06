@@ -24,7 +24,8 @@ public class NewOrderProducerApplication {
                     Order order = new Order(
                             UUID.randomUUID().toString(),
                             UUID.randomUUID().toString(),
-                            BigDecimal.valueOf(Math.random() * 5000 + 1)
+                            BigDecimal.valueOf(Math.random() * 5000 + 1),
+                            email
                     );
 
                     orderKafkaDispatcher.send("ecommerce.new.order", order.getUserId(), order);
