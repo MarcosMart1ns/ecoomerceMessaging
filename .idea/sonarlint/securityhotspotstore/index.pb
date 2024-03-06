@@ -44,3 +44,11 @@ E
 service-users/pom.xml,2\3\23dac6e78c7e39fdb6380fcabb5ea8307408cb42
 n
 >service-users/src/main/java/br/com/shop/CreateUserService.java,0\f\0f37cf2231f5a7bcf92ba51a0fe3224a03ab9d47
+D
+service-http/pom.xml,a\c\ac09a9dbfd15be7cd340127604184ce3f51859ba
+`
+0service-http/src/main/java/br/com/shop/Main.java,1\9\196ad0c2fb17b308f66d7778ee3c418e5eacd75f
+g
+7service-http/src/main/java/br/com/shop/HttpService.java,d\7\d7abc84d139e54df30ad01f34b5f2acde384c028
+h
+8service-http/src/main/java/br/com/shop/OrderServlet.java,c\e\ce65c9a303cf1dc4526b11c36ba11727cab976df
