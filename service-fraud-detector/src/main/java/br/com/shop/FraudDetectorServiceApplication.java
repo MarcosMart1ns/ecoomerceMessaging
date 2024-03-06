@@ -33,10 +33,10 @@ public class FraudDetectorServiceApplication {
             if (isFraud(record.value())) {
                 //pretending fraud happens when the ammout is above 4500
                 System.out.println("FRAUD DETECTED");
-                orderDispatcher.send("ecommerce.order.rejected",record.value().getUserId(),record.value());
+                orderDispatcher.send("ecommerce.order.rejected",record.value().getEmail(),record.value());
             }else {
                 System.out.println("ORDER APROVED:"+ record.value());
-                orderDispatcher.send("ecommerce.order.aproved",record.value().getUserId(),record.value());
+                orderDispatcher.send("ecommerce.order.aproved",record.value().getEmail(),record.value());
             }
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);

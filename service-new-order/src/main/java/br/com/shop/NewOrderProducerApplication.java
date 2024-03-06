@@ -23,13 +23,12 @@ public class NewOrderProducerApplication {
 
                     Order order = new Order(
                             UUID.randomUUID().toString(),
-                            UUID.randomUUID().toString(),
                             BigDecimal.valueOf(Math.random() * 5000 + 1),
                             email
                     );
 
-                    orderKafkaDispatcher.send("ecommerce.new.order", order.getUserId(), order);
-                    emailKafkaDispatcher.send("ecommerce.send.email", order.getUserId(), new Email(
+                    orderKafkaDispatcher.send("ecommerce.new.order", order.getEmail(), order);
+                    emailKafkaDispatcher.send("ecommerce.send.email", order.getEmail(), new Email(
                             email, msg
                     ));
                 }

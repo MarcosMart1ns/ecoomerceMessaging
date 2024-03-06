@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class CreateUserService {
 
@@ -53,13 +54,13 @@ public class CreateUserService {
         System.out.println(record.offset());
 
         if (ifIsNewUser(record.value().getEmail())) {
-            insertNewUser(record.value().getUserId(),record.value().getEmail());
+            insertNewUser(record.value().getEmail());
         }
     }
 
-    private void insertNewUser(String id, String email) throws SQLException {
+    private void insertNewUser( String email) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("insert into Users(uuid,email)values (?,?)");
-        preparedStatement.setString(1, id);
+        preparedStatement.setString(1, UUID.randomUUID().toString());
         preparedStatement.setString(2, email);
         preparedStatement.execute();
         System.out.println("Email persistido::" + email);
