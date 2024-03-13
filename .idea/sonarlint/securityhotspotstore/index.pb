@@ -60,3 +60,5 @@ Uservice-reading-report/src/main/java/br/com/shop/ReadingReportServiceApplicatio
 +commons/src/main/java/br/com/shop/User.java,5\6\56a05340ea58ffbcf4b8c54e8b44523363b25f4c
 k
 ;service-reading-report/src/main/java/br/com/shop/io/IO.java,3\5\35df007532a2de63d9631284d108e7a71a7f5999
+u
+Eservice-http/src/main/java/br/com/shop/GenerateAllReportsServlet.java,7\2\7238663a75352b085910028fa0dc4a15e68e62c4

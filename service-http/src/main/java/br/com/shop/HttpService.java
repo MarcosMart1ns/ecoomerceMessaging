@@ -10,9 +10,11 @@ public class HttpService {
         Server server = new Server(8080);
 
         ServletContextHandler context = new ServletContextHandler();
-        context.addServlet(new ServletHolder(new OrderServlet()),"/new");
-        server.setHandler(context);
+        context.addServlet(new ServletHolder(new NewOrderServlet()),"/new");
+        context.addServlet(new ServletHolder(new GenerateAllReportsServlet()),"/admin/generate-reports");
 
+
+        server.setHandler(context);
 
         server.start();
         server.join();

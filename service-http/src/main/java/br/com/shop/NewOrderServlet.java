@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
-public class OrderServlet extends HttpServlet implements Servlet {
+public class NewOrderServlet extends HttpServlet implements Servlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,7 +43,6 @@ public class OrderServlet extends HttpServlet implements Servlet {
             }
 
         }
-
 
     }
 }
