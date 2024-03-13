@@ -14,7 +14,7 @@ public class GenerateAllReportsServlet extends HttpServlet {
 
         try (KafkaDispatcher<String> batchDispatcher = new KafkaDispatcher<>()) {
 
-            batchDispatcher.send("send.message.to.all.users", "user.reading.report", );
+            batchDispatcher.send("send.message.to.all.users", "user.reading.report","user.reading.report");
 
             System.out.println("Sent generated reports to all users");
             resp.setStatus(HttpServletResponse.SC_OK);
