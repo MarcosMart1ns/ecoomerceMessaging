@@ -56,6 +56,8 @@ public class KafkaService<T> implements Closeable {
                         throw new RuntimeException(e);
                     } catch (InterruptedException | SQLException e) {
                         throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
                 }
             }

@@ -52,8 +52,6 @@ h
 8service-http/src/main/java/br/com/shop/OrderServlet.java,c\e\ce65c9a303cf1dc4526b11c36ba11727cab976df
 N
 service-reading-report/pom.xml,a\6\a607e01826a9620285f75abbc7be84083a86401f
-j
-:service-reading-report/src/main/java/br/com/shop/Main.java,b\b\bb1eafaa404ea2aa3763b9384d036269c54f3794
 …
 Uservice-reading-report/src/main/java/br/com/shop/ReadingReportServiceApplication.java,c\4\c4bb259c9a03965fd6d56c23c180f81227451a16
 [

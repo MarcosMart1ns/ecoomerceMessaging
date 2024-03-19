@@ -1,5 +1,7 @@
 package br.com.shop;
 
+import br.com.shop.domain.CorrelationId;
+import br.com.shop.domain.Message;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -13,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 
 public class KafkaDispatcher<T> implements Closeable {
 
-    private final KafkaProducer<String, T> producer;
+    private final KafkaProducer<String, Message<T>> producer;
 
     public KafkaDispatcher() {
         this.producer = new KafkaProducer<>(properties());
@@ -29,8 +31,11 @@ public class KafkaDispatcher<T> implements Closeable {
         return properties;
     }
 
-    public void send(String topic, String key, T value) throws ExecutionException, InterruptedException {
-        ProducerRecord<String, T> mensagem = new ProducerRecord<>(topic, key, value);
+    public void send(String topic, String key, T payload) throws ExecutionException, InterruptedException {
+        Message<T> message = new Message<>(CorrelationId.build(), payload);
+
+        ProducerRecord<String, Message<T>> mensagem = new ProducerRecord<>(topic, key, message);
+
         producer.send(mensagem, callback).get();
     }
 
