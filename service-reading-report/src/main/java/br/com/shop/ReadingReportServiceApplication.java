@@ -1,5 +1,6 @@
 package br.com.shop;
 
+import br.com.shop.domain.Message;
 import br.com.shop.io.IO;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import br.com.shop.domain.Order;
@@ -28,7 +29,7 @@ public class ReadingReportServiceApplication {
         }
     }
 
-    private void parse(ConsumerRecord<String, User> record) throws IOException {
+    private void parse(ConsumerRecord<String, Message<User>> record) throws IOException {
         System.out.println("""
                 Processing report for ------------> id: %s :: value: %s  :: offset: %s
                 """.formatted(
@@ -37,7 +38,7 @@ public class ReadingReportServiceApplication {
                 record.offset()
         ));
 
-        User user = record.value();
+        User user = record.value().getPayload();
 
         File target = new File(user.getReportPath());
         IO.copyTo(SOURCE,target);

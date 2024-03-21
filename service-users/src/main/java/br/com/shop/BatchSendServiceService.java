@@ -1,5 +1,6 @@
 package br.com.shop;
 
+import br.com.shop.domain.Message;
 import br.com.shop.domain.Order;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
@@ -8,7 +9,6 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 public class BatchSendServiceService {
@@ -45,16 +45,17 @@ public class BatchSendServiceService {
     }
 
 
-    private void parse(ConsumerRecord<String, String> record) throws ExecutionException, InterruptedException, SQLException {
+    private void parse(ConsumerRecord<String, Message<String>> record) throws ExecutionException, InterruptedException, SQLException {
+        Message<String> message = record.value();
+
         System.out.println("-------------------");
         System.out.println("Processing new Batch");
-        System.out.println("topic: " + record.value());
+        System.out.println("topic: " + message.getPayload());
         System.out.println(record.offset());
-
         try (KafkaDispatcher<User> userKafkaDispatcher = new KafkaDispatcher<>()) {
 
             for (User user : getAllUsers()) {
-                userKafkaDispatcher.send(record.value(), user.getUuid(), user);
+                userKafkaDispatcher.send(message.getPayload(), user.getUuid(), user);
             }
         }
     }

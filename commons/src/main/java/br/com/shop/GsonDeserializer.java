@@ -9,25 +9,10 @@ import java.util.Map;
 
 public class GsonDeserializer<T> implements Deserializer {
 
-    public static final String TYPE_CONFIG = "br.com.shop.ecommerce.type.config";
-    private final Gson gson = new GsonBuilder().create();
-    private Class<T> type;
+    private final Gson gson = new GsonBuilder().registerTypeAdapter(Message.class, new MessageAdapter()).create();
 
     @Override
-    public void configure(Map configs, boolean isKey) {
-
-        String typeName = String.valueOf(configs.get(TYPE_CONFIG));
-
-        try {
-            this.type = (Class<T>) Class.forName(typeName);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    @Override
-    public T deserialize(String topic, byte[] data) {
-        return gson.fromJson(new String(data), type);
+    public Message deserialize(String topic, byte[] data) {
+        return gson.fromJson(new String(data), Message.class);
     }
 }
