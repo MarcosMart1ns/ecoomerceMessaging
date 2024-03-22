@@ -1,5 +1,6 @@
 package br.com.shop;
 
+import br.com.shop.domain.Message;
 import br.com.shop.domain.Order;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
@@ -47,14 +48,14 @@ public class CreateUserService {
     }
 
 
-    private void parse(ConsumerRecord<String, Order> record) throws SQLException {
+    private void parse(ConsumerRecord<String, Message<Order>> record) throws SQLException {
         System.out.println("Processando novo evento");
         System.out.println("Persistindo evento");
         System.out.println(record.value());
         System.out.println(record.offset());
 
-        if (ifIsNewUser(record.value().getEmail())) {
-            insertNewUser(record.value().getEmail());
+        if (ifIsNewUser(record.value().getPayload().getEmail())) {
+            insertNewUser(record.value().getPayload().getEmail());
         }
     }
 

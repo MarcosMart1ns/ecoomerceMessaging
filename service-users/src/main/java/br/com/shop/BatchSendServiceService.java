@@ -1,5 +1,6 @@
 package br.com.shop;
 
+import br.com.shop.domain.CorrelationId;
 import br.com.shop.domain.Message;
 import br.com.shop.domain.Order;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -29,11 +30,11 @@ public class BatchSendServiceService {
         }
     }
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+    public static void main(String[] args) throws SQLException {
         BatchSendServiceService batchSendServiceService = new BatchSendServiceService();
 
         try (KafkaService<Order> kafkaService = new KafkaService(
-                "send.message.to.all.users",
+                "ecommerce.send.message.to.all.users",
                 batchSendServiceService::parse,
                 CreateUserService.class.getSimpleName(),
                 String.class,
@@ -55,7 +56,7 @@ public class BatchSendServiceService {
         try (KafkaDispatcher<User> userKafkaDispatcher = new KafkaDispatcher<>()) {
 
             for (User user : getAllUsers()) {
-                userKafkaDispatcher.send(message.getPayload(), user.getUuid(), user);
+                userKafkaDispatcher.send(message.getPayload(), user.getUuid(), message.getId().continueWith(BatchSendServiceService.class.getSimpleName()), user);
             }
         }
     }

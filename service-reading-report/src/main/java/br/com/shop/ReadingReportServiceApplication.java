@@ -18,7 +18,7 @@ public class ReadingReportServiceApplication {
         ReadingReportServiceApplication readingReportServiceApplication = new ReadingReportServiceApplication();
 
         try (KafkaService<Order> kafkaService = new KafkaService(
-                "user.reading.report",
+                "ecommerce.user.reading.report",
                 readingReportServiceApplication::parse,
                 ReadingReportServiceApplication.class.getSimpleName(),
                 Order.class,

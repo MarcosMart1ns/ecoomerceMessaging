@@ -1,5 +1,6 @@
 package br.com.shop;
 
+import br.com.shop.domain.Message;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -19,7 +20,7 @@ public class LogServiceApplication {
         kafkaService.run();
     }
 
-    private static void parse(ConsumerRecord<String, String> record) {
+    private static void parse(ConsumerRecord<String, Message<String>> record) {
         System.out.println("-----------------------------");
         System.out.println(record.value());
         System.out.println(record.offset());

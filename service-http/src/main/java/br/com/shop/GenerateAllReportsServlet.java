@@ -1,6 +1,8 @@
 package br.com.shop;
 
 ;
+import br.com.shop.domain.CorrelationId;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +16,7 @@ public class GenerateAllReportsServlet extends HttpServlet {
 
         try (KafkaDispatcher<String> batchDispatcher = new KafkaDispatcher<>()) {
 
-            batchDispatcher.send("send.message.to.all.users", "user.reading.report","user.reading.report");
+            batchDispatcher.send("send.message.to.all.users", "user.reading.report", new CorrelationId(GenerateAllReportsServlet.class.getSimpleName()),"user.reading.report");
 
             System.out.println("Sent generated reports to all users");
             resp.setStatus(HttpServletResponse.SC_OK);

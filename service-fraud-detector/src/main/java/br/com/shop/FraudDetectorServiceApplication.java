@@ -1,5 +1,6 @@
 package br.com.shop;
 
+import br.com.shop.domain.Message;
 import br.com.shop.domain.Order;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
@@ -23,18 +24,18 @@ public class FraudDetectorServiceApplication {
         kafkaService.run();
     }
 
-    private static void parse(ConsumerRecord<String, Order> record) {
+    private static void parse(ConsumerRecord<String, Message<Order>> record) {
         System.out.println("Processando novo evento");
 
         try {
             Thread.sleep(5000);
-            if (isFraud(record.value())) {
+            if (isFraud(record.value().getPayload())) {
                 //pretending fraud happens when the ammout is above 4500
                 System.out.println("FRAUD DETECTED");
-                orderDispatcher.send("ecommerce.order.rejected", record.value().getEmail(), record.value());
+                orderDispatcher.send("ecommerce.order.rejected", record.value().getPayload().getEmail(),record.value().getId().continueWith(FraudDetectorServiceApplication.class.getSimpleName()),  record.value().getPayload());
             } else {
                 System.out.println("ORDER APROVED:" + record.value());
-                orderDispatcher.send("ecommerce.order.aproved", record.value().getEmail(), record.value());
+                orderDispatcher.send("ecommerce.order.aproved", record.value().getPayload().getEmail(), record.value().getId().continueWith(FraudDetectorServiceApplication.class.getSimpleName()), record.value().getPayload());
             }
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);

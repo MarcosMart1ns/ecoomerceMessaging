@@ -1,5 +1,6 @@
 package br.com.shop;
 
+import br.com.shop.domain.CorrelationId;
 import br.com.shop.domain.Email;
 import br.com.shop.domain.Order;
 
@@ -16,9 +17,9 @@ import java.util.concurrent.ExecutionException;
 public class NewOrderServlet extends HttpServlet implements Servlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try (KafkaDispatcher<Order> orderKafkaDispatcher = new KafkaDispatcher<>();) {
-            try (KafkaDispatcher<Email> emailKafkaDispatcher = new KafkaDispatcher<>();) {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        try (KafkaDispatcher<Order> orderKafkaDispatcher = new KafkaDispatcher<>()) {
+            try (KafkaDispatcher<Email> emailKafkaDispatcher = new KafkaDispatcher<>()) {
 
                 String email = req.getParameter("email");
                 String msg = "Obrigado pela compra!";
@@ -29,16 +30,14 @@ public class NewOrderServlet extends HttpServlet implements Servlet {
                         email
                 );
 
-                orderKafkaDispatcher.send("ecommerce.new.order", order.getEmail(), order);
-                emailKafkaDispatcher.send("ecommerce.send.email", order.getEmail(), new Email(
+                orderKafkaDispatcher.send("ecommerce.new.order", order.getEmail(), new CorrelationId(NewOrderServlet.class.getSimpleName()), order);
+                emailKafkaDispatcher.send("ecommerce.send.email", order.getEmail(), new CorrelationId(NewOrderServlet.class.getSimpleName()), new Email(
                         email, msg
                 ));
                 resp.setStatus(200);
                 resp.getWriter().println("Order %s created sucessfully for %s".formatted(order.getOrderId(), order.getEmail()));
 
-            } catch (ExecutionException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
+            } catch (ExecutionException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
 
