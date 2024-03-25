@@ -1,5 +1,6 @@
 package br.com.shop;
 
+import br.com.shop.domain.CorrelationId;
 import br.com.shop.domain.Email;
 import br.com.shop.domain.Order;
 
@@ -15,9 +16,6 @@ public class NewOrderProducerApplication {
             try (KafkaDispatcher<Email> emailKafkaDispatcher = new KafkaDispatcher<>();) {
                 for (int i = 0; i < 10; i++) {
 
-                    String value = "123123,123123,conta";
-                    String key = value;
-
                     String email = "email@host.com";
                     String msg = "Obrigado pela compra!";
 
@@ -27,8 +25,8 @@ public class NewOrderProducerApplication {
                             email
                     );
 
-                    orderKafkaDispatcher.send("ecommerce.new.order", order.getEmail(), order);
-                    emailKafkaDispatcher.send("ecommerce.send.email", order.getEmail(), new Email(
+                    orderKafkaDispatcher.send("ecommerce.new.order", order.getEmail(), new CorrelationId(NewOrderProducerApplication.class.getSimpleName()), order);
+                    emailKafkaDispatcher.send("ecommerce.send.email", order.getEmail(), new CorrelationId(NewOrderProducerApplication.class.getSimpleName()), new Email(
                             email, msg
                     ));
                 }
