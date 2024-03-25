@@ -39,7 +39,6 @@ public class CreateUserService {
                 "ecommerce.new.order",
                 createUserService::parse,
                 CreateUserService.class.getSimpleName(),
-                Order.class,
                 new HashMap<>())){
             kafkaService.run();
         } catch (IOException e) {

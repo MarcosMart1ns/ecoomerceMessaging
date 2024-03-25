@@ -37,7 +37,6 @@ public class BatchSendServiceService {
                 "ecommerce.send.message.to.all.users",
                 batchSendServiceService::parse,
                 CreateUserService.class.getSimpleName(),
-                String.class,
                 new HashMap<>())) {
             kafkaService.run();
         } catch (IOException e) {

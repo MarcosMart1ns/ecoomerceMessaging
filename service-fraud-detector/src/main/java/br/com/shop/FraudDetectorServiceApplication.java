@@ -18,7 +18,6 @@ public class FraudDetectorServiceApplication {
                 "ecommerce.new.order",
                 FraudDetectorServiceApplication::parse,
                 FraudDetectorServiceApplication.class.getSimpleName(),
-                Order.class,
                 new HashMap<>());
 
         kafkaService.run();

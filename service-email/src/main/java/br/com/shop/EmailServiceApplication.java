@@ -12,7 +12,6 @@ public class EmailServiceApplication {
                 "ecommerce.send.email",
                 EmailServiceApplication::parse,
                 EmailServiceApplication.class.getSimpleName(),
-                Email.class,
                 new HashMap<>());
 
         kafkaService.run();

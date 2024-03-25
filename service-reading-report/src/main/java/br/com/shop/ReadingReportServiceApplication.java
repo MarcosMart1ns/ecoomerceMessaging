@@ -21,7 +21,6 @@ public class ReadingReportServiceApplication {
                 "ecommerce.user.reading.report",
                 readingReportServiceApplication::parse,
                 ReadingReportServiceApplication.class.getSimpleName(),
-                Order.class,
                 new HashMap<>())) {
 
             kafkaService.run();
