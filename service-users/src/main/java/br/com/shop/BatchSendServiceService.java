@@ -1,6 +1,5 @@
 package br.com.shop;
 
-import br.com.shop.domain.CorrelationId;
 import br.com.shop.domain.Message;
 import br.com.shop.domain.Order;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -55,7 +54,7 @@ public class BatchSendServiceService {
         try (KafkaDispatcher<User> userKafkaDispatcher = new KafkaDispatcher<>()) {
 
             for (User user : getAllUsers()) {
-                userKafkaDispatcher.send(message.getPayload(), user.getUuid(), message.getId().continueWith(BatchSendServiceService.class.getSimpleName()), user);
+                userKafkaDispatcher.sendAndAsync(message.getPayload(), user.getUuid(), message.getId().continueWith(BatchSendServiceService.class.getSimpleName()), user);
             }
         }
     }

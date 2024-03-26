@@ -6,12 +6,13 @@ import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.io.Closeable;
-import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class KafkaDispatcher<T> implements Closeable {
 
@@ -32,12 +33,20 @@ public class KafkaDispatcher<T> implements Closeable {
         return properties;
     }
 
+
+
     public void send(String topic, String key, CorrelationId correlationId, T payload) throws ExecutionException, InterruptedException {
+        Future<RecordMetadata> send = sendAndAsync(topic, key, correlationId, payload);
+        send.get();
+    }
+
+    public Future<RecordMetadata> sendAndAsync(String topic, String key, CorrelationId correlationId, T payload) {
         Message<T> message = new Message<>(correlationId, payload);
 
         ProducerRecord<String, Message<T>> mensagem = new ProducerRecord<>(topic, key, message);
 
-        producer.send(mensagem, callback).get();
+        Future<RecordMetadata> send = producer.send(mensagem, callback);
+        return send;
     }
 
     Callback callback = (metadata, exception) -> {
