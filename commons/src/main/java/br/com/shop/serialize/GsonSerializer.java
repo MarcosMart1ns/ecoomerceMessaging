@@ -1,5 +1,6 @@
-package br.com.shop;
+package br.com.shop.serialize;
 
+import br.com.shop.MessageAdapter;
 import br.com.shop.domain.Message;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

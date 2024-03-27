@@ -1,5 +1,6 @@
 package br.com.shop;
 
+import br.com.shop.deserialize.GsonDeserializer;
 import br.com.shop.domain.Message;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;

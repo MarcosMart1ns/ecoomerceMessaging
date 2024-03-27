@@ -2,6 +2,7 @@ package br.com.shop;
 
 import br.com.shop.domain.CorrelationId;
 import br.com.shop.domain.Message;
+import br.com.shop.serialize.GsonSerializer;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -41,7 +42,7 @@ public class KafkaDispatcher<T> implements Closeable {
     }
 
     public Future<RecordMetadata> sendAndAsync(String topic, String key, CorrelationId correlationId, T payload) {
-        Message<T> message = new Message<>(correlationId, payload);
+        Message<T> message = new Message<>(correlationId.continueWith("_"+topic), payload);
 
         ProducerRecord<String, Message<T>> mensagem = new ProducerRecord<>(topic, key, message);
 

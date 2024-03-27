@@ -1,6 +1,7 @@
 package br.com.shop;
 
 import br.com.shop.domain.Message;
+import br.com.shop.domain.User;
 import br.com.shop.io.IO;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import br.com.shop.domain.Order;
