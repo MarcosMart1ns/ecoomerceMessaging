@@ -19,29 +19,22 @@ public class NewOrderServlet extends HttpServlet implements Servlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try (KafkaDispatcher<Order> orderKafkaDispatcher = new KafkaDispatcher<>()) {
-            try (KafkaDispatcher<Email> emailKafkaDispatcher = new KafkaDispatcher<>()) {
 
-                String email = req.getParameter("email");
-                String msg = "Obrigado pela compra!";
+            String email = req.getParameter("email");
 
-                Order order = new Order(
-                        UUID.randomUUID().toString(),
-                        new BigDecimal(req.getParameter("amount")),
-                        email
-                );
+            Order order = new Order(
+                    UUID.randomUUID().toString(),
+                    new BigDecimal(req.getParameter("amount")),
+                    email
+            );
 
-                orderKafkaDispatcher.send("ecommerce.new.order", order.getEmail(), new CorrelationId(NewOrderServlet.class.getSimpleName()), order);
-                emailKafkaDispatcher.send("ecommerce.send.email", order.getEmail(), new CorrelationId(NewOrderServlet.class.getSimpleName()), new Email(
-                        email, msg
-                ));
-                resp.setStatus(200);
-                resp.getWriter().println("Order %s created sucessfully for %s".formatted(order.getOrderId(), order.getEmail()));
+            orderKafkaDispatcher.send("ecommerce.new.order", order.getEmail(), new CorrelationId(NewOrderServlet.class.getSimpleName()), order);
 
-            } catch (ExecutionException | InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            resp.setStatus(200);
+            resp.getWriter().println("Order %s created sucessfully for %s".formatted(order.getOrderId(), order.getEmail()));
 
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
         }
-
     }
 }

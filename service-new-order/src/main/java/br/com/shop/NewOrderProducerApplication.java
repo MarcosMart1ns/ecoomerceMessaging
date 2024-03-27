@@ -13,26 +13,20 @@ public class NewOrderProducerApplication {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
         try (KafkaDispatcher<Order> orderKafkaDispatcher = new KafkaDispatcher<>();) {
-            try (KafkaDispatcher<Email> emailKafkaDispatcher = new KafkaDispatcher<>();) {
-                for (int i = 0; i < 10; i++) {
 
-                    String email = "email@host.com";
-                    String msg = "Obrigado pela compra!";
+            for (int i = 0; i < 10; i++) {
 
-                    Order order = new Order(
-                            UUID.randomUUID().toString(),
-                            BigDecimal.valueOf(Math.random() * 5000 + 1),
-                            email
-                    );
+                String email = "email@host.com";
 
-                    orderKafkaDispatcher.send("ecommerce.new.order", order.getEmail(), new CorrelationId(NewOrderProducerApplication.class.getSimpleName()), order);
-                    emailKafkaDispatcher.send("ecommerce.send.email", order.getEmail(), new CorrelationId(NewOrderProducerApplication.class.getSimpleName()), new Email(
-                            email, msg
-                    ));
-                }
+                Order order = new Order(
+                        UUID.randomUUID().toString(),
+                        BigDecimal.valueOf(Math.random() * 5000 + 1),
+                        email
+                );
+
+                orderKafkaDispatcher.send("ecommerce.new.order", order.getEmail(), new CorrelationId(NewOrderProducerApplication.class.getSimpleName()), order);
+
             }
-
         }
-
     }
 }
