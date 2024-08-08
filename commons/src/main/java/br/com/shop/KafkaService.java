@@ -59,16 +59,16 @@ public class KafkaService<T> implements Closeable {
     }
 
     private Properties properties() {
-        Properties properties = new Properties();
+        Properties props = new Properties();
 
-        properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-        properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, GsonDeserializer.class.getName());
-        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, consumerGroup);
-        properties.setProperty(ConsumerConfig.CLIENT_ID_CONFIG,consumerGroup);
-        properties.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"1");
-        properties.putAll(this.properties);
-        return properties;
+        props.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        props.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, GsonDeserializer.class.getName());
+        props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, consumerGroup);
+        props.setProperty(ConsumerConfig.CLIENT_ID_CONFIG,consumerGroup);
+        props.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"1");
+        props.putAll(this.properties);
+        return props;
     }
 
     @Override

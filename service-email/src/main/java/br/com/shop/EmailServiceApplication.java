@@ -4,20 +4,24 @@ import br.com.shop.domain.Email;
 import br.com.shop.domain.Message;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
-import java.util.HashMap;
+import java.io.IOException;
 
-public class EmailServiceApplication {
-    public static void main(String[] args) {
-        KafkaService kafkaService = new KafkaService(
-                "ecommerce.send.email",
-                EmailServiceApplication::parse,
-                EmailServiceApplication.class.getSimpleName(),
-                new HashMap<>());
+public class EmailServiceApplication implements ConsumerService<String> {
 
-        kafkaService.run();
+    public static void main(String[] args) throws IOException {
+      new ServiceProvider().run(EmailServiceApplication::new);
     }
 
-    private static void parse(ConsumerRecord<String, Message<Email>> consumerRecord){
+    public String getTopic(){
+        return "ecommerce.send.email";
+    }
+
+    @Override
+    public String getConsumerGroup() {
+        return EmailServiceApplication.class.getSimpleName();
+    }
+
+    public void parse(ConsumerRecord<String, Message<Email>> consumerRecord){
         System.out.println("Processando novo email------------>");
         System.out.println(consumerRecord.key());
         System.out.println(consumerRecord.value().getPayload());
