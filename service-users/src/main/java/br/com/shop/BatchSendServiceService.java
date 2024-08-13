@@ -1,8 +1,10 @@
 package br.com.shop;
 
+import br.com.shop.consumer.KafkaService;
 import br.com.shop.domain.Message;
 import br.com.shop.domain.Order;
 import br.com.shop.domain.User;
+import br.com.shop.producer.KafkaDispatcher;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.io.IOException;

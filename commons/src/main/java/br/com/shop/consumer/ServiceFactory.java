@@ -1,4 +1,4 @@
-package br.com.shop;
+package br.com.shop.consumer;
 
 public interface ServiceFactory<T> {
 

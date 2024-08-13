@@ -1,4 +1,4 @@
-package br.com.shop;
+package br.com.shop.consumer;
 
 import br.com.shop.deserialize.GsonDeserializer;
 import br.com.shop.domain.Message;

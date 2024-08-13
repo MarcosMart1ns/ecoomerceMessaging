@@ -1,4 +1,4 @@
-package br.com.shop;
+package br.com.shop.consumer;
 
 import java.io.IOException;
 import java.util.HashMap;

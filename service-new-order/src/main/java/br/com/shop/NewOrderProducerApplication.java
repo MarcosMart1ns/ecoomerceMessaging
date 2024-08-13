@@ -1,8 +1,8 @@
 package br.com.shop;
 
 import br.com.shop.domain.CorrelationId;
-import br.com.shop.domain.Email;
 import br.com.shop.domain.Order;
+import br.com.shop.producer.KafkaDispatcher;
 
 import java.math.BigDecimal;
 import java.util.UUID;

@@ -1,11 +1,12 @@
 package br.com.shop;
 
+import br.com.shop.consumer.ConsumerService;
+import br.com.shop.consumer.ServiceRunner;
 import br.com.shop.domain.Email;
 import br.com.shop.domain.Message;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.io.IOException;
-import java.util.concurrent.Executors;
 
 public class EmailServiceApplication implements ConsumerService<String> {
 

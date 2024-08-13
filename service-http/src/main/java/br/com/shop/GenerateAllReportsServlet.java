@@ -2,6 +2,7 @@ package br.com.shop;
 
 ;
 import br.com.shop.domain.CorrelationId;
+import br.com.shop.producer.KafkaDispatcher;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

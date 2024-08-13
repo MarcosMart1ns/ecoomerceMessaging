@@ -1,35 +1,25 @@
 package br.com.shop;
 
+import br.com.shop.consumer.ConsumerService;
+import br.com.shop.consumer.ServiceRunner;
 import br.com.shop.domain.Message;
 import br.com.shop.domain.User;
 import br.com.shop.io.IO;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import br.com.shop.domain.Order;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.HashMap;
 
 
-public class ReadingReportServiceApplication {
+public class ReadingReportServiceApplication implements ConsumerService<User> {
     final Path SOURCE = new File("src/main/resources").toPath();
 
     public static void main(String[] args) throws IOException {
-        ReadingReportServiceApplication readingReportServiceApplication = new ReadingReportServiceApplication();
-
-        try (KafkaService<Order> kafkaService = new KafkaService(
-                "ecommerce.user.reading.report",
-                readingReportServiceApplication::parse,
-                ReadingReportServiceApplication.class.getSimpleName(),
-                new HashMap<>())) {
-
-            kafkaService.run();
-
-        }
+        new ServiceRunner<>(ReadingReportServiceApplication::new).start(5);
     }
 
-    private void parse(ConsumerRecord<String, Message<User>> record) throws IOException {
+    public void parse(ConsumerRecord<String, Message<User>> record) {
         System.out.println("""
                 Processing report for ------------> id: %s :: value: %s  :: offset: %s
                 """.formatted(
@@ -41,8 +31,23 @@ public class ReadingReportServiceApplication {
         User user = record.value().getPayload();
 
         File target = new File(user.getReportPath());
-        IO.copyTo(SOURCE,target);
-        IO.append(target, "Created for "+ user.getUuid());
+        try {
+            IO.copyTo(SOURCE,target);
+            IO.append(target, "Created for "+ user.getUuid());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         System.out.println("File Created");
+    }
+
+    @Override
+    public String getTopic() {
+        return "ecommerce.user.reading.report";
+    }
+
+    @Override
+    public String getConsumerGroup() {
+        return ReadingReportServiceApplication.class.getSimpleName();
     }
 }

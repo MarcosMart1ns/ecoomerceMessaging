@@ -1,4 +1,4 @@
-package br.com.shop;
+package br.com.shop.producer;
 
 import br.com.shop.domain.CorrelationId;
 import br.com.shop.domain.Message;

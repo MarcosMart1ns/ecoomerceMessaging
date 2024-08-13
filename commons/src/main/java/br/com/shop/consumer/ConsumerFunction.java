@@ -1,4 +1,4 @@
-package br.com.shop;
+package br.com.shop.consumer;
 
 import br.com.shop.domain.Message;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
