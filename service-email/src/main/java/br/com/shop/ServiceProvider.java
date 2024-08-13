@@ -2,12 +2,20 @@ package br.com.shop;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.concurrent.Callable;
 
-public class ServiceProvider {
+public class ServiceProvider<T> implements Callable<Void> {
 
-    public <T> void run(ServiceFactory<T> factory) throws IOException {
+    private final ServiceFactory<T> serviceFactory;
 
-        var service = factory.create();
+    public ServiceProvider(ServiceFactory<T> serviceFactory) {
+        this.serviceFactory = serviceFactory;
+    }
+
+    @Override
+    public Void call() throws IOException {
+
+        var service = serviceFactory.create();
 
         try (KafkaService kafkaService = new KafkaService(
                 service.getTopic(),
@@ -17,5 +25,6 @@ public class ServiceProvider {
 
             kafkaService.run();
         }
+        return null;
     }
 }
