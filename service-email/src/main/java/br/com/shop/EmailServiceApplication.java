@@ -8,14 +8,11 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.io.IOException;
 
-public class EmailServiceApplication implements ConsumerService<String> {
+public class EmailServiceApplication implements ConsumerService<Email> {
 
     public static void main(String[] args) throws IOException {
-
         int THREADS = 5;
-
         new ServiceRunner<>(EmailServiceApplication::new).start(THREADS);
-
     }
 
     public String getTopic() {

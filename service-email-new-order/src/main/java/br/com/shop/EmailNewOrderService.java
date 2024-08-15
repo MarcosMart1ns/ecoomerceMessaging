@@ -1,6 +1,7 @@
 package br.com.shop;
 
-import br.com.shop.consumer.KafkaService;
+import br.com.shop.consumer.ConsumerService;
+import br.com.shop.consumer.ServiceRunner;
 import br.com.shop.domain.CorrelationId;
 import br.com.shop.domain.Message;
 import br.com.shop.domain.Order;
@@ -12,19 +13,23 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 
-public class EmailNewOrderService {
+public class EmailNewOrderService implements ConsumerService<Order> {
 
     public static void main(String[] args) {
-        KafkaService<Order> kafkaService = new KafkaService(
-                "ecommerce.new.order",
-                EmailNewOrderService::parse,
-                EmailNewOrderService.class.getSimpleName(),
-                new HashMap<>());
-
-        kafkaService.run();
+        new ServiceRunner<>(EmailNewOrderService::new).start(5);
     }
 
-    private static void parse(ConsumerRecord<String, Message<Order>> record) {
+    @Override
+    public String getTopic() {
+        return "ecommerce.new.order";
+    }
+
+    @Override
+    public String getConsumerGroup() {
+        return EmailNewOrderService.class.getSimpleName();
+    }
+
+    public void parse(ConsumerRecord<String, Message<Order>> record) {
         System.out.println("Preparando Email");
 
 
