@@ -9,7 +9,7 @@ import br.com.shop.producer.KafkaDispatcher;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
+
 import java.util.concurrent.ExecutionException;
 
 
