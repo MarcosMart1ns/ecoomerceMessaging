@@ -67,7 +67,7 @@ public class KafkaService<T> implements Closeable {
         props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, consumerGroup);
         props.setProperty(ConsumerConfig.CLIENT_ID_CONFIG,consumerGroup);
         props.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"1");
-        props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"largest");
+        props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"latest");
         props.putAll(this.properties);
         return props;
     }
