@@ -8,8 +8,6 @@ import br.com.shop.domain.Order;
 import br.com.shop.producer.KafkaDispatcher;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
-import java.math.BigDecimal;
-
 import java.util.concurrent.ExecutionException;
 
 
@@ -52,7 +50,4 @@ public class EmailNewOrderService implements ConsumerService<Order> {
         }
     }
 
-    private static boolean isFraud(Order order) {
-        return order.getAmmount().compareTo(new BigDecimal("4500")) >= 0;
-    }
 }

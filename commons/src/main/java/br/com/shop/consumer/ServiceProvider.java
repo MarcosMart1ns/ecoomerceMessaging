@@ -1,6 +1,7 @@
 package br.com.shop.consumer;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 
@@ -13,7 +14,7 @@ public class ServiceProvider<T> implements Callable<Void> {
     }
 
     @Override
-    public Void call() throws IOException {
+    public Void call() throws IOException, SQLException {
 
         var service = serviceFactory.create();
 
