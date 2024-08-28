@@ -10,12 +10,8 @@ E
 service-email/pom.xml,e\0\e0dd095a2d635b7017f99b1acccd9b732e1af2bb
 ?
 commons/pom.xml,8\3\83c7f1c3bc8463fc5ab936b79403a9ba63515391
-g
-7commons/src/main/java/br/com/shop/GsonDeserializer.java,e\5\e56fcd8dd80dfd164dd51407d6bffb3eb52384b9
 c
 3commons/src/main/java/br/com/shop/KafkaService.java,e\d\ed11b06f490d6e6a5a3ea7ebab9cbe44a4763696
-e
-5commons/src/main/java/br/com/shop/GsonSerializer.java,5\8\58273b6cdb485bb41285e4093aa912c0c41fe7e6
 g
 7commons/src/main/java/br/com/shop/ConsumerFunction.java,b\a\baf9340b27fd0f934cde8a7dd23a7c1a98f99488
 f
@@ -52,9 +48,13 @@ N
 service-reading-report/pom.xml,a\6\a607e01826a9620285f75abbc7be84083a86401f
 …
 Uservice-reading-report/src/main/java/br/com/shop/ReadingReportServiceApplication.java,c\4\c4bb259c9a03965fd6d56c23c180f81227451a16
-[
-+commons/src/main/java/br/com/shop/User.java,5\6\56a05340ea58ffbcf4b8c54e8b44523363b25f4c
 k
 ;service-reading-report/src/main/java/br/com/shop/io/IO.java,3\5\35df007532a2de63d9631284d108e7a71a7f5999
 u
 Eservice-http/src/main/java/br/com/shop/GenerateAllReportsServlet.java,7\2\7238663a75352b085910028fa0dc4a15e68e62c4
+l
+<service-email/src/main/java/br/com/shop/ConsumerService.java,c\f\cf663b6189097de02967a5c0ed5312ed55c52d70
+l
+<service-email/src/main/java/br/com/shop/ServiceProvider.java,c\3\c3f9ce41bb8ccb149c4169eb938d67b5e058da55
+k
+;service-email/src/main/java/br/com/shop/ServiceFactory.java,2\1\2107cfd1e681c4cc2308c367a8ff13f41db50d36

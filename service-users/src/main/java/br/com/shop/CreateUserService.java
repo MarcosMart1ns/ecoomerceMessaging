@@ -7,7 +7,6 @@ import br.com.shop.domain.Order;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,23 +14,16 @@ import java.util.UUID;
 
 public class CreateUserService implements ConsumerService<Order> {
 
-    private final String DB_URL = "jdbc:sqlite:\\users_database.db";
-    private final Connection connection;
+    private final LocalDatabase database;
 
     public CreateUserService() throws SQLException {
-        this.connection = DriverManager.getConnection(DB_URL);
-
-        try {
-            connection.createStatement().execute("create table Users(" +
-                    "uuid varchar(200) primary key," +
-                    "email varchar(200)" +
-                    ")");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.err.println(e);
-        } finally {
-            connection.close();
-        }
+      this.database = new LocalDatabase("users_database");
+      this.database.createIfNotExists("""
+      create table Users(
+      uuid varchar(200) primary key,
+      email varchar(200)
+      )
+      """);
     }
 
     public static void main(String[] args) {
@@ -63,20 +55,16 @@ public class CreateUserService implements ConsumerService<Order> {
     }
 
     private void insertNewUser(String email) throws SQLException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement("insert into Users(uuid,email)values (?,?)")) {
-            preparedStatement.setString(1, UUID.randomUUID().toString());
-            preparedStatement.setString(2, email);
-            preparedStatement.execute();
+        this.database.update("insert into Users(uuid,email)values (?,?)", UUID.randomUUID().toString(), email);
 
-        }
+
         System.out.println("Email persistido::" + email);
     }
 
     private boolean ifIsNewUser(String email) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("select uuid from Users where email = ? limit 1");
-        preparedStatement.setString(1, email);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        return resultSet.next();
+        return this.database
+                .query("select uuid from Users where email = ? limit 1")
+                .next();
     }
 
 }
